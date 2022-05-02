@@ -90,7 +90,7 @@ const pacientesController = {
             }
         );
 
-        res.status(200).json(pacienteAtualizado.nome);
+        res.status(200).json(pacienteAtualizado);
     },
 }
 
