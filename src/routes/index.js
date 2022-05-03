@@ -1,13 +1,14 @@
 const express = require("express");
 const pacientesController = require("../controllers/controllerPacientes")
+const pacientesValidation = require("../validators/pacientesValidation")
 
 const routes = express.Router();
 
 
-routes.post("/pacientes", pacientesController.cadastrar);
+routes.post("/pacientes", pacientesValidation, pacientesController.cadastrar);
 routes.get("/pacientes", pacientesController.listarPacientes);
 routes.get("/pacientes/:id", pacientesController.buscarPeloId);
-routes.delete("/pacientes/:id/deletar", pacientesController.deletarPaciente);
-routes.put("/pacientes/:id/atualizar", pacientesController.atualizarPaciente);
+routes.delete("/pacientes/:id", pacientesController.deletarPaciente);
+routes.put("/pacientes/:id", pacientesValidation, pacientesController.atualizarPaciente);
 
 module.exports = routes;

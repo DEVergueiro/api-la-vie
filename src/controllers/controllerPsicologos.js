@@ -1,0 +1,2 @@
+const {Psicologos} = require("../models");
+
