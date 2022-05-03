@@ -82,7 +82,8 @@ const controllerPsicologos = {
             }
         )
         if(atualizado ==0) return res.status(400).json("id invalido");  
-        res.status(200).json(atualizado);
+        Psicologos.findByPk(id).then((result) => res.json(result));
+        res.status(200);
        } catch (error) {
         return res.status(500).json("error.message")
        }
