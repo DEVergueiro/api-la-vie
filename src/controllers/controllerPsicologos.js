@@ -1,4 +1,4 @@
-const Psicologos = require("../models/Psicologos")
+const {Psicologos} = require("../models")
 
 console.log(Psicologos)
 
