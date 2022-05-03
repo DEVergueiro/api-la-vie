@@ -1,5 +1,5 @@
-const Pacientes = require("../models/pacientes");
-
+const {Pacientes} = require("../models");
+const Sequelize = require("sequelize")
 
 const pacientesController = {
 
@@ -87,11 +87,15 @@ const pacientesController = {
                 where: {
                     id,
                 },
+                plain: true,
+                
             }
         );
+        
+        Pacientes.findByPk(id).then((result) => res.json(result))
+        res.status(200)
 
-        res.status(200).json(pacienteAtualizado);
-    },
+    }
 }
 
 module.exports = pacientesController;

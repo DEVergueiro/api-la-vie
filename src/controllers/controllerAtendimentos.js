@@ -1,4 +1,4 @@
-const Atendimentos = require("../models/Atendimentos");
+const {Atendimentos} = require("../models");
 
 const atendimentosController = {
   async listarAtendimentos(req, res) {
@@ -53,3 +53,4 @@ const atendimentosController = {
 };
 
 module.exports = atendimentosController;
+

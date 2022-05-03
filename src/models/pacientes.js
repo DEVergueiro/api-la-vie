@@ -14,7 +14,6 @@ const Pacientes = db.define(
             type: DataTypes.STRING,
             // length: 100,
             field: "nome"
-
         },
         email: {
             type: DataTypes.STRING,
