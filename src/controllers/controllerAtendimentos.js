@@ -32,24 +32,28 @@ const atendimentosController = {
   async agendarAtendimento(req, res) {
     const { paciente_id, data_atendimento, observacao, psicologo_id } =
       req.body;
-
-    if (!paciente_id || !data_atendimento || !observacao || !psicologo_id) {
-      return res
-        .status(400)
-        .json(
-          "Há um erro na requisição. Verifique se todos os dados foram preenchidos corretamente"
-        );
-    }
-
-    const novoAtendimento = await Atendimentos.create({
-      paciente_id,
-      data_atendimento,
-      observacao,
-      psicologo_id,
-    });
-
-    res.status(201).json(novoAtendimento);
+    try{
+      if (!paciente_id || !data_atendimento || !observacao || !psicologo_id) {
+        return res
+          .status(400)
+          .json(
+            "Há um erro na requisição. Verifique se todos os dados foram preenchidos corretamente"
+          );
+      }
+      const novoAtendimento = await Atendimentos.create({
+        paciente_id,
+        data_atendimento,
+        observacao,
+        psicologo_id,
+      });
+  
+      res.status(201).json(novoAtendimento);
+    }catch (error) {
+        return res.status(500).json(`Ocorreu algum problema. Erro: ${error.message}`);
+      }
   },
+
+
 };
 
 module.exports = atendimentosController;
