@@ -35,12 +35,7 @@ async function checkConnection(){
     catch(error){
         console.log("---> NAO CONSIGO MANTER CONEXAO COM O BANCO...");
         console.error(error);
-    }
-}
-
-Object.assign(db, {
     checkConnection
 }); 
-
 
 module.exports = db;
