@@ -10,19 +10,19 @@ const Atendimentos = db.define(
          autoIncrement: true,
         
      },
-     psicologos_id:{
+     psicologo_id:{
         type: DataTypes.INTEGER,
         foreignKey: true,
-        field: "psicologos_id"
+        field: "psicologo_id"
     },
-    pacientes_id:{
+    paciente_id:{
         type: DataTypes.INTEGER,
         foreignKey: true,
-        field: "pacientes_id"
+        field: "paciente_id"
     },
-     data_atendimentos:{
+     data_atendimento:{
          type: DataTypes.DATE,
-         field: "data_atendimentos"
+         field: "data_atendimento"
      },
      observacao:{
         type: DataTypes.STRING,
