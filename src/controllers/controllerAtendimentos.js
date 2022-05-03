@@ -1,0 +1,1 @@
+const {Atendimentos} = require("../models");
