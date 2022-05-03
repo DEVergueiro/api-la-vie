@@ -20,20 +20,20 @@ const Atendimentos = db.define(
         foreignKey: true,
         field: "pacientes_id"
     },
-    data_atendimentos:{
-        type: DataTypes.DATE,
-        field: "data_atendimentos"
+     data_atendimentos:{
+         type: DataTypes.DATE,
+         field: "data_atendimentos"
+     },
+     observacao:{
+        type: DataTypes.STRING,
+        length: 1000,
+        field: "observacao"
     },
-    observacao:{
-       type: DataTypes.STRING,
-       length: 1000,
-       field: "observacao"
-   },
-  
-   },{
-       tableName: "atendimentos",
-       paranoid: true,
-   }
+   
+    },{
+        tableName: "atendimentos",
+        paranoid: true,
+    }
 );
 
-module.exports = Atendimentos
+module.exports = Atendimentos;
