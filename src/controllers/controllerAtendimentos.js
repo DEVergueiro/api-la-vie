@@ -31,7 +31,7 @@ const atendimentosController = {
 
   async agendarAtendimento(req, res) {
 
-    console.log(`O id do psicologo é: ${req.auth.id}`)
+    // console.log(`O id do psicologo é: ${req.auth.id}`)
     const { paciente_id, data_atendimento, observacao, psicologo_id } =
       req.body;
 
