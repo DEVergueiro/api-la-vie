@@ -4,7 +4,11 @@ const bcrypt = require('bcrypt');
 const controllerPsicologos = {
     async listarPsicologos(req, res) {
         try {
-            const listaDePsicologos = await Psicologos.findAll();
+            const listaDePsicologos = await Psicologos.findAll({
+                attributes: {
+                    exclude: ["senha"]
+                  },
+            });
             return res.status(200).json(listaDePsicologos);
         }
         catch (error) {
@@ -13,8 +17,12 @@ const controllerPsicologos = {
     },
     async listarPsicologosId(req, res) {
         try {
-            const { id } = req.params;
+            const { id } = req.params;            
+            
             const listaDePsicologos = await Psicologos.findOne({
+                attributes: {
+                    exclude: ["senha"]
+                  },
                 where: {
                     id,
                 }
