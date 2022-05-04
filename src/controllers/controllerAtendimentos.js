@@ -30,7 +30,8 @@ const atendimentosController = {
   },
 
   async agendarAtendimento(req, res) {
-    console.log(req.auth.id);
+
+    console.log(`O id do psicologo é: ${req.auth.id}`)
     const { paciente_id, data_atendimento, observacao, psicologo_id } =
       req.body;
 
@@ -42,11 +43,13 @@ const atendimentosController = {
             "Há um erro na requisição. Verifique se todos os dados foram preenchidos corretamente"
           );
       }
+      const tokenId = req.auth.id
+      console.log(tokenId);
       const novoAtendimento = await Atendimentos.create({
         paciente_id,
         data_atendimento,
         observacao,
-        psicologo_id,
+        psicologo_id: tokenId ,
       });
   
       res.status(201).json(novoAtendimento);
