@@ -3,12 +3,12 @@ const Psicologos = require("./psicologos")
 const Atendimentos = require("./atendimentos")
 
 Pacientes.belongsToMany(Psicologos,{
-    foreignKey:"pacientes_id",
+    foreignKey:"paciente_id",
     through: Atendimentos,
 })
 
 Psicologos.belongsToMany(Pacientes,{
-    foreignKey:"psicologos_id",
+    foreignKey:"psicologo_id",
     through: Atendimentos,
 })
 
