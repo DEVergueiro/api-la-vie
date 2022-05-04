@@ -7,6 +7,13 @@ const pacientesController = {
         try {
            
             const { nome, email, data_nasc } = req.body;
+
+            const existsUser = await Pacientes.count({where:{email}})
+
+            if (existsUser){
+                return res.status(400).json("E-mail já existe!")
+            }
+
             const novoPaciente = await Pacientes.create({ nome, email, data_nasc });
            
             return res.status(201).json(novoPaciente);
@@ -32,7 +39,6 @@ const pacientesController = {
 
     async buscarPeloId(req, res) {
         const idPacientes = req.params['id'];
-        console.log("id da url recuperado = " + req.params["id"])
         
         try {
             const paciente = await Pacientes.findByPk(idPacientes);
@@ -76,6 +82,7 @@ const pacientesController = {
 
         // if (!id) return res.status(400).json("id não enviado");
         if (!nome || !email || !data_nasc) return res.status(400).json("Erro, informe todos os dados");
+
 
         const pacienteAtualizado = await Pacientes.update(
             {

@@ -32,6 +32,7 @@ const atendimentosController = {
   async agendarAtendimento(req, res) {
     const { paciente_id, data_atendimento, observacao, psicologo_id } =
       req.body;
+
     try{
       if (!paciente_id || !data_atendimento || !observacao || !psicologo_id) {
         return res
