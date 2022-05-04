@@ -1,4 +1,5 @@
-const {Atendimentos} = require("../models");
+const {Psicologos, Pacientes} = require("../models");
+const Atendimentos = require("../models/atendimentos");
 
 const atendimentosController = {
   async listarAtendimentos(req, res) {
@@ -13,7 +14,11 @@ const atendimentosController = {
   async listarAtendimentosPorId(req, res) {
     try {
       const { id } = req.params;
+
       const listaDeAtendimentos = await Atendimentos.findOne({
+        include: [
+          {model: Pacientes}
+        ],
         where: {
           id,
         },
