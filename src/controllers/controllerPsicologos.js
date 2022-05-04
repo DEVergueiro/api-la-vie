@@ -1,4 +1,5 @@
 const {Psicologos} = require("../models")
+const bcrypt = require('bcryptjs')
 
 const controllerPsicologos = {
     async listarPsicologos(req, res) {
@@ -42,6 +43,7 @@ const controllerPsicologos = {
     async cadastrarPsicologo(req, res) {
         try {
             const { nome, email, senha, apresentacao } = req.body;
+            const newSenha = bcrypt.hashSync(senha,10);
             if (!nome || !email || !senha || !apresentacao) {
                 return res
                     .status(400)
@@ -57,7 +59,7 @@ const controllerPsicologos = {
             const novoPsicologo = await Psicologos.create({
                 nome,
                 email,
-                senha,
+                senha: newSenha,
                 apresentacao
             });
             res.status(201).json(novoPsicologo);
