@@ -4,7 +4,7 @@ let db = {}
 
 const DATABASE_NAME = "la_vie";
 const USERNAME      = "root";
-const PASSWORD      = "root";
+const PASSWORD      = "mysql";
 const DIALECT       = "mysql";
 const HOSTNAME      = "localhost";
 const PORT          = 3306;
