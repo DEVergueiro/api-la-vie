@@ -1,7 +1,5 @@
 const {Psicologos} = require("../models")
 
-console.log(Psicologos)
-
 const controllerPsicologos = {
     async listarPsicologos(req, res) {
         try {
@@ -21,7 +19,7 @@ const controllerPsicologos = {
                 }
             });
             if (listaDePsicologos !== null) res.status(200).json(listaDePsicologos)
-            else res.status(404).json("id não encontrado");
+            else res.status(404).json("Id não encontrado");
         }
         catch (error) {
             return res.status(500).json("error.message");
@@ -49,6 +47,13 @@ const controllerPsicologos = {
                     .status(400)
                     .json({ error: "Você precisa passar os atributos corretamente" });
             }
+
+            const existsUser = await Psicologos.count({where:{email}})
+            
+            if (existsUser){
+                    return res.status(400).json("E-mail já existe!")
+            }
+
             const novoPsicologo = await Psicologos.create({
                 nome,
                 email,
@@ -61,7 +66,7 @@ const controllerPsicologos = {
         }
     },
     async atualizarPsicologo(req, res) {
-        const { id } = req.params;
+    const { id } = req.params;
        try {
         const { nome, email, senha, apresentacao } = req.body   
         if (!nome || !email || !senha || !apresentacao) {
