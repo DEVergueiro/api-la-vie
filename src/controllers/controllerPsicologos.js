@@ -1,4 +1,5 @@
 const {Psicologos} = require("../models")
+const bcrypt = require('bcrypt');
 
 const controllerPsicologos = {
     async listarPsicologos(req, res) {
@@ -54,12 +55,18 @@ const controllerPsicologos = {
                     return res.status(400).json("E-mail já existe!")
             }
 
+            const criptografadaSenha = bcrypt.hashSync(senha, 10, function(err, hash){
+
+            }) // use this to compare the password on login https://www.npmjs.com/package/bcrypt
+
             const novoPsicologo = await Psicologos.create({
                 nome,
                 email,
-                senha,
+                senha: criptografadaSenha,
                 apresentacao
             });
+           
+
             res.status(201).json(novoPsicologo);
         } catch (error) {
             return res.status(500).json("error.message")
