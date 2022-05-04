@@ -12,6 +12,4 @@ Psicologos.belongsToMany(Pacientes,{
     through: Atendimentos,
 })
 
-
-
-module.exports={Pacientes, Psicologos, Atendimentos}
+module.exports={Pacientes, Psicologos}
