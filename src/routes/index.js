@@ -26,7 +26,7 @@ routes.put("/psicologos/:id", psicologosValidation, psicologosController.atualiz
 
 routes.get("/atendimentos", atendimentosController.listarAtendimentos);
 routes.get("/atendimentos/:id", atendimentosController.listarAtendimentosPorId);
-routes.post("/atendimentos", auth, atendimentosController.agendarAtendimento);
+routes.post("/atendimentos", auth, atendimentosValidation, atendimentosController.agendarAtendimento);
 
 routes.post("/login", authLoginValidation, AuthController.login )
 module.exports = routes;

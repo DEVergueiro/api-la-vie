@@ -16,19 +16,19 @@ const Atendimentos = db.define(
         type: DataTypes.INTEGER,
         foreignKey: true,
         field: "psicologo_id",
-        // references: {
-        //     model: tablePsicologos,
-        //     key: "id",
-        // },
+        references: {
+            model: tablePsicologos,
+            key: "id",
+        },
     },
     paciente_id:{
         type: DataTypes.INTEGER,
         foreignKey: true,
         field: "paciente_id",
-        // references: {
-        //     model: tablePacientes,
-        //     key: "id",
-        // }
+        references: {
+            model: tablePacientes,
+            key: "id",
+        }
     },
      data_atendimento:{
          type: DataTypes.DATE,

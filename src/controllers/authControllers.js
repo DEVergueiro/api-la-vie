@@ -13,12 +13,13 @@ const AuthController = {
             },
         });
 
+
         if (!psicologo) {
-            return res.status(400).json("E-mail não cadastrado");
+            return res.status(401).json("E-mail ou senha inválido, verifique e tente novamente”");
         }
 
         if (!bcrypt.compareSync(senha, psicologo.senha)){
-            return res.status(401).json("Senha inválida!");
+            return res.status(401).json("E-mail ou senha inválido, verifique e tente novamente”");
         }
 
         const token = jwt.sign({
@@ -28,8 +29,8 @@ const AuthController = {
         },
         secret.key
         );
-
-        return res.json(token)
+        
+        return res.status(200).json(token)
     },
 
 }
