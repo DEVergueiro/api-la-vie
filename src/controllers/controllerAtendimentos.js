@@ -54,19 +54,12 @@ const atendimentosController = {
   },
 
   async agendarAtendimento(req, res) {
-
+    
     const { paciente_id, data_atendimento, observacao} =
       req.body;
 
     try{
-      if (!paciente_id || !data_atendimento || !observacao ) {
-        return res
-          .status(400)
-          .json(
-            "Há um erro na requisição. Verifique se todos os dados foram preenchidos corretamente"
-          );
-      }
-
+      
       const paciente = await Pacientes.findByPk(paciente_id)
 
       if(!paciente){
