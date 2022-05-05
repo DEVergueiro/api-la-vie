@@ -16,23 +16,26 @@ const pacientesController = {
 
             const novoPaciente = await Pacientes.create({ nome, email, data_nasc });
            
-            return res.status(201).json(novoPaciente);
+            res.status(201).json(novoPaciente);
         }
         catch (error) {
-            console.log("---> ERRO AO CADASTRAR O PACIENTE");
-            console.error(error);
-            return res.status(400).json("erro ao cadastrar o paciente");
+            return res.status(400).json("Ocorreu um erro");
         }
     },
     async listarPacientes(req, res) {
         try {
             const lista = await Pacientes.findAll();
+            
+            if(!lista){
+                return res.status(200).json("[]")
+            }
+            
             res.status(200);
             res.json(lista);
         }
         catch (error) {
             res.status(500);
-            res.send("Erro ao recuperar dados dos pacientes");
+            res.send("Ocorreu um erro");
         }
        
     },
@@ -42,67 +45,64 @@ const pacientesController = {
         
         try {
             const paciente = await Pacientes.findByPk(idPacientes);
-            if (paciente){  
-                res.status(200);
-                res.json(paciente);
+            if (!paciente){  
+                return res.status(404).json("Id não encontrado");  
             }
-            else{
-                res.status(404);
-                res.send("Id não encontrado");
+            res.status(200).json(paciente);
+
+            } catch (error) {
+            res.status(500).json("Ocorreu um erro")
             }
-        }
-        catch (error) {
-            res.status(500);
-            res.send("Erro ao recuperar dados do banco")
-        }
     },
 
     async deletarPaciente(req, res){
         try {
             const { id } = req.params;
 
-            if (await Pacientes.destroy({
+            const paciente = await Pacientes.destroy({
                 where:{
                     id,
-                }})) {
-                return res.status(204).json("Paciente Deletado")}
-            else{
-                res.status(404);
-                res.send("Id não encontrado");
-            }
-
+                }
+            })
+            if (paciente == 1) res.status(204).json("Psicologo apagado")
+            else res.status(404).json("id não encontrado");
+        
         } catch (error) {
-            return res.status(500).json("Ocorreu algum problema");
+            return res.status(500).json("Ocorreu um erro");
         }
     },
 
     async atualizarPaciente(req, res) {
         const { id } = req.params;
         const { nome, email, data_nasc } = req.body;
+        try{
 
-        // if (!id) return res.status(400).json("id não enviado");
-        if (!nome || !email || !data_nasc) return res.status(400).json("Erro, informe todos os dados");
+            const paciente = await Pacientes.findByPk(id)
 
-
-        const pacienteAtualizado = await Pacientes.update(
-            {
-                nome,
-                email,
-                data_nasc,
-            },
-            {
-                where: {
-                    id,
-                },
-                plain: true,
-                
+            if(!paciente){
+                return res.status(404).json("Id não encontrado");
             }
-        );
-        
-        Pacientes.findByPk(id).then((result) => res.json(result))
-        res.status(200)
 
-    }
+            const pacienteAtualizado = await Pacientes.update(
+                {
+                    nome,
+                    email,
+                    data_nasc,
+                },
+                {
+                    where: {
+                        id,
+                    }
+                }
+            );
+            
+
+            Pacientes.findByPk(id).then((result) => res.json(result))
+            res.status(200)
+        } catch (error) {
+            return res.status(500).json("Ocorreu um erro");
+        }
+    } 
 }
 
 module.exports = pacientesController;
