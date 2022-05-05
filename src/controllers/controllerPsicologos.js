@@ -79,11 +79,14 @@ const controllerPsicologos = {
                 .status(400)
                 .json({ error: "Você precisa passar os atributos corretamente" });
         }    
+
+        const newSenha = bcrypt.hashSync(senha,10);
+
         const atualizado = await Psicologos.update(
             {
                 nome,
                 email,
-                senha,
+                senha:newSenha,
                 apresentacao
             }, {
                 where:{
