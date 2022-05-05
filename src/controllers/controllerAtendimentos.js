@@ -13,9 +13,14 @@ const atendimentosController = {
           {model:Pacientes,attributes:["nome"]},
         ]
       });
+
+      if(!listaDeAtendimentos){
+        return res.status(200).json("[]")
+      }
+
       res.status(200).json(listaDeAtendimentos);
     } catch (error) {
-      res.status(500).json(error.message);
+      res.status(500).json("Ocorreu um erro");
     }
   },
 
@@ -40,11 +45,11 @@ const atendimentosController = {
       if (listaDeAtendimentos) {
         res.status(200).json(listaDeAtendimentos);
       } else {
-        res.status(404).json("Atendimento não encontrado");
+        return res.status(404).json("Id não encontrado");
       }
-      console.log(res);
+      
     } catch (error) {
-      res.status(500).json(error.message);
+      res.status(500).json("Ocorreu um erro");
     }
   },
 
@@ -61,6 +66,13 @@ const atendimentosController = {
             "Há um erro na requisição. Verifique se todos os dados foram preenchidos corretamente"
           );
       }
+
+      const paciente = await Pacientes.findByPk(paciente_id)
+
+      if(!paciente){
+          return res.status(404).json("Id do paciente não encontrado");
+      }
+
       const tokenId = req.auth.id
       
       const novoAtendimento = await Atendimentos.create({
@@ -72,7 +84,7 @@ const atendimentosController = {
   
       res.status(201).json(novoAtendimento);
     }catch (error) {
-        return res.status(500).json(`Ocorreu algum problema. Erro: ${error.message}`);
+        return res.status(500).json("Ocorreu um erro");
       }
   },
 
