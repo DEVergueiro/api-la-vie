@@ -4,7 +4,9 @@ const bcrypt = require('bcryptjs')
 const controllerPsicologos = {
     async listarPsicologos(req, res) {
         try {
-            const listaDePsicologos = await Psicologos.findAll();
+            const listaDePsicologos = await Psicologos.findAll({
+                attributes: {exclude:"senha"}
+            });
             return res.status(200).json(listaDePsicologos);
         }
         catch (error) {
@@ -17,7 +19,8 @@ const controllerPsicologos = {
             const listaDePsicologos = await Psicologos.findOne({
                 where: {
                     id,
-                }
+                },
+                attributes: {exclude:"senha"}
             });
             if (listaDePsicologos !== null) res.status(200).json(listaDePsicologos)
             else res.status(404).json("Id não encontrado");

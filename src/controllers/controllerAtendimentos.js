@@ -1,9 +1,15 @@
-const {Atendimentos} = require("../models");
+const {Atendimentos, Psicologos, Pacientes} = require("../models");
+
 
 const atendimentosController = {
   async listarAtendimentos(req, res) {
     try {
-      const listaDeAtendimentos = await Atendimentos.findAll();
+      const listaDeAtendimentos = await Atendimentos.findAll({
+        include:[
+          {model:Psicologos,attributes:["nome"]},
+          {model:Pacientes,attributes:["nome"]},
+        ]
+      });
       res.status(200).json(listaDeAtendimentos);
     } catch (error) {
       res.status(500).json(error.message);
@@ -17,6 +23,10 @@ const atendimentosController = {
         where: {
           id,
         },
+        include:[
+          {model:Psicologos,attributes:["nome"]},
+          {model:Pacientes,attributes:["nome"]},
+        ]
       });
       if (listaDeAtendimentos) {
         res.status(200).json(listaDeAtendimentos);
@@ -31,12 +41,11 @@ const atendimentosController = {
 
   async agendarAtendimento(req, res) {
 
-    // console.log(`O id do psicologo é: ${req.auth.id}`)
-    const { paciente_id, data_atendimento, observacao, psicologo_id } =
+    const { paciente_id, data_atendimento, observacao} =
       req.body;
 
     try{
-      if (!paciente_id || !data_atendimento || !observacao || !psicologo_id) {
+      if (!paciente_id || !data_atendimento || !observacao ) {
         return res
           .status(400)
           .json(
@@ -44,7 +53,7 @@ const atendimentosController = {
           );
       }
       const tokenId = req.auth.id
-      console.log(tokenId);
+      
       const novoAtendimento = await Atendimentos.create({
         paciente_id,
         data_atendimento,
