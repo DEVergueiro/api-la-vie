@@ -5,6 +5,9 @@ const atendimentosController = require("../controllers/controllerAtendimentos");
 const pacientesValidation = require("../validators/pacientesValidation")
 const psicologosValidation = require("../validators/psicologosValidation")
 const atendimentosValidation = require("../validators/atendimentosValidation")
+const authLoginValidation = require("../validators/auth/login")
+const AuthController = require("../controllers/authControllers")
+const auth = require("../middlewares/auth")
 
 const routes = express.Router();
 
@@ -18,11 +21,12 @@ routes.put("/pacientes/:id", pacientesValidation, pacientesController.atualizarP
 routes.get("/psicologos", psicologosController.listarPsicologos);
 routes.get("/psicologos/:id", psicologosController.listarPsicologosId);
 routes.delete("/psicologos/:id", psicologosController.deletarPsicologo);
-routes.post("/psicologos/", psicologosValidation, psicologosController.cadastrarPsicologo);
+routes.post("/psicologos", psicologosValidation, psicologosController.cadastrarPsicologo);
 routes.put("/psicologos/:id", psicologosValidation, psicologosController.atualizarPsicologo);
 
 routes.get("/atendimentos", atendimentosController.listarAtendimentos);
 routes.get("/atendimentos/:id", atendimentosController.listarAtendimentosPorId);
-routes.post("/atendimentos", atendimentosValidation, atendimentosController.agendarAtendimento);
+routes.post("/atendimentos", auth, atendimentosValidation, atendimentosController.agendarAtendimento);
 
+routes.post("/login", authLoginValidation, AuthController.login )
 module.exports = routes;
