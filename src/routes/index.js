@@ -8,6 +8,7 @@ const atendimentosValidation = require("../validators/atendimentosValidation")
 const authLoginValidation = require("../validators/auth/login")
 const AuthController = require("../controllers/authControllers")
 const auth = require("../middlewares/auth")
+const controllerDashboard = require("../controllers/controllerDashboard")
 
 const routes = express.Router();
 
@@ -29,4 +30,10 @@ routes.get("/atendimentos/:id", atendimentosController.listarAtendimentosPorId);
 routes.post("/atendimentos", auth, atendimentosValidation, atendimentosController.agendarAtendimento);
 
 routes.post("/login", authLoginValidation, AuthController.login )
+
+routes.get("/dashboard/numero-paciente", controllerDashboard.numeroPacientes);
+routes.get("/dashboard/numero-atendimento", controllerDashboard.numeroAtendimentos);
+routes.get("/dashboard/numero-psicologo", controllerDashboard.numeroPsicologos);
+routes.get("/dashboard/mediaAtendimentos", controllerDashboard.mediaAtendimentos);
+
 module.exports = routes;
