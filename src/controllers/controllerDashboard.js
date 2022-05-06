@@ -52,7 +52,7 @@ const controllerDashboard = {
 
             const mediaAtPorPsi = (Math.round(nAtendimentos / nPsicologos));
 
-            return res.status(200).json(`Temos em média ${mediaAtPorPsi} atendimentos por psicólogos`);
+            return res.status(200).json(`Temos em média ${mediaAtPorPsi} atendimento(s) por psicólogo`);
 
         } catch (error) {
           return res.status(500).json("Ocorreu um erro");
