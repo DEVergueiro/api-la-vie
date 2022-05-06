@@ -15,11 +15,11 @@ const AuthController = {
 
 
             if (!psicologo) {
-                return res.status(401).json("E-mail ou senha inválido, verifique e tente novamente”");
+                return res.status(401).json("E-mail ou senha inválida, verifique e tente novamente”");
             }
 
             if (!bcrypt.compareSync(senha, psicologo.senha)){
-                return res.status(401).json("E-mail ou senha inválido, verifique e tente novamente”");
+                return res.status(401).json("E-mail ou senha inválida, verifique e tente novamente”");
             }
 
             const token = jwt.sign({

@@ -64,8 +64,8 @@ const pacientesController = {
                     id,
                 }
             })
-            if (paciente == 1) res.status(204).json("Psicologo apagado")
-            else res.status(404).json("id não encontrado");
+            if (paciente == 1) res.status(204).json("Psicólogo apagado")
+            else res.status(404).json("Id não encontrado");
         
         } catch (error) {
             return res.status(500).json("Ocorreu um erro");
@@ -75,6 +75,13 @@ const pacientesController = {
     async atualizarPaciente(req, res) {
         const { id } = req.params;
         const { nome, email, data_nasc } = req.body;
+        if (!nome || !email || !data_nasc ) {
+            return res
+              .status(400)
+              .json(
+                "Há um erro na requisição. Verifique se todos os dados foram preenchidos corretamente"
+              );
+          }
         try{
 
             const paciente = await Pacientes.findByPk(id)
@@ -98,7 +105,7 @@ const pacientesController = {
             
 
             Pacientes.findByPk(id).then((result) => res.json(result))
-            res.status(200)
+            res.status(201)
         } catch (error) {
             return res.status(500).json("Ocorreu um erro");
         }

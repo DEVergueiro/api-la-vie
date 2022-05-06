@@ -44,8 +44,8 @@ const controllerPsicologos = {
                     id,
                 }
             });
-            if (psicologos == 1) res.status(204).json("Psicologo apagado")
-            else res.status(404).json("id não encontrado");
+            if (psicologos == 1) res.status(204).json("Psicologo deletado")
+            else res.status(404).json("Id não encontrado");
         } catch (error) {
             return res.status(500).json("Ocorreu um erro")
         };
