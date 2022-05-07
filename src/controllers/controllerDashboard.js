@@ -7,9 +7,9 @@ const controllerDashboard = {
     async numeroPacientes(req, res){
         try{
 
-            const nPacientes = await Pacientes.count()
+            const numeroPacientes = await Pacientes.count()
 
-            return res.status(200).json(`Temos ${nPacientes} paciente(s) cadastrado(s)`);
+            return res.status(200).json(`Temos ${numeroPacientes} paciente(s) cadastrado(s)`);
 
         }catch (error){
             return res.status(500).json("Ocorreu um erro");
@@ -20,9 +20,9 @@ const controllerDashboard = {
     async numeroAtendimentos(req,res){
         try{
 
-            const nAtendimentos = await Atendimentos.count()
+            const numeroAtendimentos = await Atendimentos.count()
 
-            return res.status(200).json(`Temos ${nAtendimentos} atendimento(s) cadastrado(s)`);
+            return res.status(200).json(`Temos ${numeroAtendimentos} atendimento(s) cadastrado(s)`);
 
         }catch (error){
             return res.status(500).json("Ocorreu um erro");
@@ -33,9 +33,9 @@ const controllerDashboard = {
 
     async numeroPsicologos (req, res){
         try{
-            const nPsicologos = await Psicologos.count()
+            const numeroPsicologos = await Psicologos.count()
 
-            return res.status(200).json(`Temos ${nPsicologos} psicologo(s) cadastrado(s)`);
+            return res.status(200).json(`Temos ${numeroPsicologos} psicologo(s) cadastrado(s)`);
 
         }catch(error){
             return res.status(500).json("Ocorreu um erro");
@@ -47,12 +47,12 @@ const controllerDashboard = {
     async mediaAtendimentos(req, res) {
         try {
             
-            const nPsicologos = await Psicologos.count()
-            const nAtendimentos = await Atendimentos.count()
+            const numeroPsicologos = await Psicologos.count()
+            const numeroAtendimentos = await Atendimentos.count()
 
-            const mediaAtPorPsi = (Math.round(nAtendimentos / nPsicologos));
+            const mediaAtendimentosPorPsicologos = (Math.round(numeroAtendimentos / numeroPsicologos));
 
-            return res.status(200).json(`Temos em média ${mediaAtPorPsi} atendimento(s) por psicólogo`);
+            return res.status(200).json(`Temos em média ${mediaAtendimentosPorPsicologos} atendimento(s) por psicólogo`);
 
         } catch (error) {
           return res.status(500).json("Ocorreu um erro");
