@@ -12,12 +12,10 @@ const Pacientes = db.define(
         },
         nome: {
             type: DataTypes.STRING,
-            // length: 100,
             field: "nome"
         },
         email: {
             type: DataTypes.STRING,
-            // length: 100,
             field: "email"
         },
         data_nasc: {
